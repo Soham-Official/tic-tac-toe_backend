@@ -9,7 +9,7 @@ const Room = require("./models/room");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const http = require("http");
-// app.use(cors());
+app.use(cors());
 app.use(bodyParser.json());
 // const port1 = process.env.PORT || 8000;
 const corsOptions = {
@@ -18,9 +18,9 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 const port1 = http.createServer(app);
-const io = require("socket.io")("https://tic-tact-toe.herokuapp.com/");
+const io = require("socket.io")(port1, corsOptions);
 router.get("/", (req, res) => {
   res.send("Server is Running");
 });
