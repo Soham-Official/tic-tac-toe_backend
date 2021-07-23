@@ -8,19 +8,23 @@ const app = express();
 const Room = require("./models/room");
 const bodyParser = require("body-parser");
 const router = express.Router();
-const http = require("http");
+// const http = require("http");
 app.use(cors());
 app.use(bodyParser.json());
 // const port1 = process.env.PORT || 8000;
-const corsOptions = {
-  origin:
-    "https://60fa827057c49395415a5769--competent-bhaskara-c2519a.netlify.app/",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin:
+//     "https://60fa827057c49395415a5769--competent-bhaskara-c2519a.netlify.app/",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
 // app.use(cors(corsOptions));
-const port1 = http.createServer(app);
-const io = require("socket.io")(port1, corsOptions);
+var server = app.listen(port, () => {
+  console.log(`Server is running at ${port}`);
+});
+
+// const port1 = http.createServer(app);
+const io = require("socket.io").listen(server);
 router.get("/", (req, res) => {
   res.send("Server is Running");
 });
@@ -139,6 +143,3 @@ mongoose
   .then(() => {
     console.log("Database Connected");
   });
-app.listen(port, () => {
-  console.log(`Server is running at ${port}`);
-});
