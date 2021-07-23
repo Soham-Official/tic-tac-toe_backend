@@ -7,11 +7,16 @@ const str = require("@supercharge/strings");
 const app = express();
 const Room = require("./models/room");
 const bodyParser = require("body-parser");
-// const http = require("http");
+const router = express.Router();
+const http = require("http");
 app.use(cors());
 app.use(bodyParser.json());
-const port1 = process.env.PORT || 8000;
+// const port1 = process.env.PORT || 8000;
+const port1 = http.createServer(app);
 const io = require("socket.io")(port1);
+router.get("/", (req, res) => {
+  res.send("Server is Running");
+});
 io.on("connection", (socket) => {
   socket.on("join", async (roomId) => {
     console.log("Player Joined", roomId);
