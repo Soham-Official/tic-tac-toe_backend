@@ -20,7 +20,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 const port1 = http.createServer(app);
-const io = require("socket.io")(port1);
+const io = require("socket.io")("https://tic-tact-toe.herokuapp.com/");
 router.get("/", (req, res) => {
   res.send("Server is Running");
 });
